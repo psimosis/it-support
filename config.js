@@ -1,0 +1,1 @@
+export const BASE_URL = 'http://200.32.43.32/glpi/apirest.php/';
