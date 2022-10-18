@@ -10,25 +10,25 @@ export const AuthProvider = ({children}) => {
     const [userInfo, setUserInfo] = useState({});    
     const [isLoading, setIsLoading] = useState(false);    
         
-    const login = (usuario, password) => {
+    const login = async (usuario,password) => {
         setIsLoading(true);
-        var usrPass64 = base64.encode('glpi:Lamparita2015');
+        var usrPass64 = base64.encode(usuario + ':' + password);
         
-        axios.post('${BASE_URL}/initSession/',  {
-            headers:{
-                'Authorization':' Basic Z2xwaTpMYW1wYXJpdGEyMDE1'
+        var config = {
+            method: 'get',
+            url: 'http://200.32.43.32/glpi/apirest.php//initSession/',
+            headers: { 
+              'Authorization': 'Basic ' + usrPass64
             }
-        })
-        .then(res => {
-            let userInfo = res.data;
-            setUserInfo(userInfo);
-            console.log(userInfo);
-            AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-            setIsLoading(false);
-        })
-        .catch(e => {
-            console.log('Login Error ${e}'); 
-        })
+          };
+          
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
     return (
         <AuthContext.Provider 
