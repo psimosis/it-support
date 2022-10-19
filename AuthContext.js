@@ -2,7 +2,7 @@ import React, {createContext, useState} from "react";
 import axios from 'axios';
 import base64 from 'react-native-base64'
 import { BASE_URL } from "./config";
-import { AsyncStorage } from "react-native";
+
 
 export const AuthContext = createContext();
 
