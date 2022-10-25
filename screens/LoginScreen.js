@@ -1,15 +1,23 @@
 import React, { useContext, useState } from 'react';
-import {Text,View,TextInput,Button,StyleSheet} from 'react-native';
-import { AuthContext } from './AuthContext';
+import {Text,View,TextInput,Button,StyleSheet, Image, Dimensions} from 'react-native';
+import {AuthContext } from '../context/AuthContext';
+import imagen from '../images/logo.png'
+import imagenOrt from '../images/logoort.png'
 
 const LoginScreen = ({navigation}) => {
     const [usuario, setUsuario] = useState(null);
     const [password, setPassword] = useState(null);
-    const {isLoading, login} = useContext(AuthContext);
+    const {login} = useContext(AuthContext);
     
 
     return (
         <View style={styles.container}>
+            <Image
+                source={imagen}
+                style={styles.image}
+            />
+            <Text> </Text>
+            <Text> </Text>
             <View style={styles.wrapper}>
                 <TextInput
                     style={styles.input} 
@@ -25,10 +33,17 @@ const LoginScreen = ({navigation}) => {
                 />
                 <Button title="Login" onPress={() => {login(usuario,password)}}/>
             </View>
+            <Text> </Text>
+            <Text> </Text>
+            <Image
+                source={imagenOrt}
+                style={styles.imageOrt}
+            />
         </View>
     );
 };
 
+const pantalla = Dimensions.get('screen');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -44,6 +59,14 @@ const styles = StyleSheet.create({
         borderColor: '#bbb',
         borderRadius: 5,
         paddingHorizontal: 14,
+    },
+    image: {
+        height:425,
+        width:pantalla.width,
+      },
+    imageOrt: {
+       height:100,
+       width:180,
     },
 })
 

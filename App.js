@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import Navigation from './Navigation';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
   return (

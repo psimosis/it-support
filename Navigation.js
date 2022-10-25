@@ -1,24 +1,33 @@
-import React from "react";
-import { Text,View } from "react-native";
+import React, { useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from "./HomeScreen";
-import LoginScreen from "./LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
+import { AuthContext } from "./context/AuthContext";
+import { DrawerNavigator } from "./DrawerNavigator";
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
+    const {userToken} = useContext(AuthContext);
     return (
-        <NavigationContainer>
+
+    <NavigationContainer independent={true}>
             <Stack.Navigator>
-                <Stack.Screen 
-                    name="Login" 
-                    component={LoginScreen}
-                    options={{headerShown: false}}
-                />
-                <Stack.Screen
-                    name="Home" component={HomeScreen}
-                />
+                {userToken.session_token ? (
+                    
+                    <Stack.Screen
+                        name="Home" component={HomeScreen}
+                    />
+                ) : (
+                  <>
+                    <Stack.Screen 
+                        name="Login" 
+                        component={LoginScreen}
+                        options={{headerShown: false}}
+                    />   
+                  </>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     );
