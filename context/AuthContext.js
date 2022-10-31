@@ -23,7 +23,7 @@ export const AuthProvider = ({children}) => {
           .then(function (response) {
             let userToken = response.data;
             setUserToken(userToken);
-            AsyncStorage.setItem('userToken', JSON.stringify(response.data));
+            //AsyncStorage.setItem('userToken', JSON.stringify(response.data));
           })
           .catch(function (error) {
             console.log(error);

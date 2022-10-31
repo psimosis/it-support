@@ -61,12 +61,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
     },
     image: {
-        height:425,
+        height:300,
         width:pantalla.width,
+        resizeMode: 'contain',
       },
     imageOrt: {
-       height:100,
-       width:180,
+       height:50,
+       width:90,
+       resizeMode: 'contain',
     },
 })
 

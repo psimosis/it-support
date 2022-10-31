@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import { AuthContext } from "./context/AuthContext";
-import { DrawerNavigator } from "./DrawerNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +16,9 @@ const Navigation = () => {
                 {userToken.session_token ? (
                     
                     <Stack.Screen
-                        name="Home" component={HomeScreen}
+                        name="ORT - IT Support" 
+                        component={HomeScreen}
+                        options={{headerShown: false}}
                     />
                 ) : (
                   <>
