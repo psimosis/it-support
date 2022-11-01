@@ -41,7 +41,7 @@ export function DrawerNavigator() {
                     drawerIcon: ({focused, size}) => (<Ionicons
                             name="duplicate-outline"
                             size={size}
-                            color={focused ? '#2813F3' : '#000000'}                        />
+                            color={focused ? '#2813F3' : '#000000'}  />
                     ),
                 }}  />
 
@@ -58,8 +58,6 @@ export function DrawerNavigator() {
                             color={focused ? '#2813F3' : '#000000'}                        />
                     ),
                 }}  />
-
-            
         </Drawer.Navigator>
     )
 }
