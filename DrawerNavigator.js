@@ -1,15 +1,18 @@
 import React, { Fragment } from "react";
+
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import NewTicketScreen from "./screens/NewTicketScreen";
 import MisTickets from "./screens/MisTickets";
-import { View,StyleSheet } from "react-native-web";
 import Ionicons from '@expo/vector-icons/Ionicons'
+import CustomDrawer from "./custom/CustomDrawer"
+import { View, StyleSheet } from "react-native";
 
 const Drawer = createDrawerNavigator()
 
 export function DrawerNavigator() {
     return(
-        <Drawer.Navigator>
+        <Drawer.Navigator 
+            drawerContent={props => <CustomDrawer {...props}/>}>
                             
                 <Drawer.Screen 
                     name = "Mis Tickets" 
@@ -60,12 +63,3 @@ export function DrawerNavigator() {
         </Drawer.Navigator>
     )
 }
-
-const styles = StyleSheet.create({
-    separador: {
-        marginVertical: 8,
-        borderBottomColor: "blue",
-        borderBottomWidth: StyleSheet.hairlineWidth
-    }
-
-})

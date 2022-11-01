@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [userToken, setUserToken] = useState({});    
-            
+    
     const login = async (usuario,password) => {
         var usrPass64 = base64.encode(usuario + ':' + password);
         var config = {
