@@ -39,3 +39,5 @@ export const AuthProvider = ({children}) => {
         </AuthContext.Provider>
     );
 };
+
+export default AuthProvider;

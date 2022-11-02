@@ -8,7 +8,7 @@ const HomeScreen = () => {
     const user = useContext(AuthContext);
     const userToken = user.userToken.session_token;
     console.log(user);
-    
+     
     return (
         <NavigationContainer independent={true}>
            <DrawerNavigator />
