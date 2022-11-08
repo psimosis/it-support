@@ -2,7 +2,8 @@ import React, {createContext, useState} from "react";
 import axios from 'axios';
 import base64 from 'react-native-base64'
 import { BASE_URL } from "../config/Config";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from 'react-native'
+
 
 export const AuthContext = createContext();
 
@@ -10,6 +11,16 @@ export const AuthProvider = ({children}) => {
     const [userToken, setUserToken] = useState({}); 
     const [userData, setUserData] = useState({}); 
     
+    const setToken = async (token) =>{
+      await AsyncStorage.setItem('userToken', userToken.session_token);
+    }
+    const getToken = async () =>{
+      return await AsyncStorage.getItem('userToken');
+    }
+    const removeToken = async () =>{
+      return await AsyncStorage.removeItem('userToken');
+    }
+
     const login = async (usuario,password) => {
         var usrPass64 = base64.encode(usuario + ':' + password);
         
@@ -22,27 +33,30 @@ export const AuthProvider = ({children}) => {
           };
           
           axios(config)
-          .then(function (response) {
-            let userToken = response.data;
-            console.log('UserToken 1: ' + JSON.stringify(userToken))
-            setUserToken(userToken);
-            AsyncStorage.setItem('userToken', JSON.stringify(response.data));
+          .then((response)=> {
+            console.log('UserToken: ' + response.data.session_token)
+            setToken(response.data.session_token);
+
           })
           .catch(function (error) {
             console.log(error);
           });
-
-          console.log('UserToken 2: ' + JSON.stringify(userToken))
-          var config = {
+         
+          //console.log('UserToken 2: ' + JSON.stringify(userToken))
+          //const value = await AsyncStorage.getItem('userToken');
+          //console.log('UserToken 2: ' + value)
+          var config2 = {
             method: 'get',
             url: BASE_URL + '/getFullSession/',
             headers: { 
-              'Session-Token': '' + userToken.session_token
+              'Session-Token': '' + getToken()
             }}
 
-          await axios(config)
-          .then(function (response) {
+          axios(config2)
+          .then((response)=> {
             let userData = response.data;
+            console.log('FullSession:');
+            //console.log(userData)
             setUserData(userData);
           })
           .catch(function (error) {
@@ -52,17 +66,24 @@ export const AuthProvider = ({children}) => {
 
 
     }
+    
 
     const logout = () => {
-      axios.post( BASE_URL + '/killSession/',
-        {},
-        {
-          headers: {'Session-Token': '' + userToken},
-        }
-      ).then(res => {
-        console.log(res.data)
-        AsyncStorage.removeItem('userToken');
-        setUserToken({});
+      
+      var config = {
+        method: 'get',
+        url: BASE_URL + '/killSession/',
+        headers: { 
+          'Session-Token': '' + getToken()
+        }}
+      axios(config)
+      .then((response) => {
+        console.log(response.data)
+        removeToken()
+      })
+      .catch(e => {
+        console.log(value);
+        console.log('Error en el Logout '+ {e});
       })
     }
 
@@ -70,8 +91,7 @@ export const AuthProvider = ({children}) => {
     return (
         <AuthContext.Provider 
             value={{
-                userToken,
-                userData,
+                getToken,
                 login,
                 logout,
             }}>

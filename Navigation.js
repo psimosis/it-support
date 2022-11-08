@@ -8,12 +8,14 @@ import { AuthContext } from "./context/AuthContext";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
-    const {userToken} = useContext(AuthContext);
+    const {getToken} = useContext(AuthContext);
+    console.log("GetToken:")
+    console.log(getToken());
     return (
 
     <NavigationContainer independent={true}>
             <Stack.Navigator>
-                {userToken.session_token ? (
+                {getToken() ? (
                     
                     <Stack.Screen
                         name="ORT - IT Support" 
