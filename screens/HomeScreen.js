@@ -6,8 +6,8 @@ import { DrawerNavigator } from "../DrawerNavigator";
 
 const HomeScreen = () => {
     const user = useContext(AuthContext);
-    const userToken = user.userToken.session_token;
-    const userName = user.userData.glpiname;
+    const userToken = user?.userToken?.session_token;
+    const userName = user?.userData?.session?.glpiname;
 
     const navTheme = {
         colors: {

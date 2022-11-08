@@ -8,8 +8,8 @@ import Icon from '@expo/vector-icons/Ionicons'
 
 const MisTickets = () => {
     const[data, setData] = useState({});
-    const user = useContext(AuthContext);
-    const userToken = user.userToken.session_token;
+    const {user, getToken} = useContext(AuthContext);
+    //const userToken = user.userToken.session_token;
     //console.log(userToken);
     
 
@@ -18,7 +18,7 @@ const MisTickets = () => {
             method: 'get',
             url: BASE_URL + '/Ticket/',
             headers: { 
-              'Session-Token': '' + userToken
+              'Session-Token': '' + getToken()
             }}
         Axios(config)
         .then(({ data }) => {
