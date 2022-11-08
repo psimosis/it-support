@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {Text,View} from 'react-native';
 import { AuthContext } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,13 +7,21 @@ import { DrawerNavigator } from "../DrawerNavigator";
 const HomeScreen = () => {
     const user = useContext(AuthContext);
     const userToken = user.userToken.session_token;
-    console.log(user);
-     
+    const userName = user.userData.glpiname;
+
+    const navTheme = {
+        colors: {
+          background: "#171717"
+        }
+      };
+
     return (
         <NavigationContainer independent={true}>
+           
            <DrawerNavigator />
             <View>
-                <Text>User Token: {userToken} </Text>
+            <Text>SessionToken: {userToken}</Text>
+            <Text>glpiname: {userName}</Text>
             </View>
 
         </NavigationContainer>
