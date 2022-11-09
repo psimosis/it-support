@@ -1,27 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {Text,View} from 'react-native';
 import { AuthContext } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 import { DrawerNavigator } from "../DrawerNavigator";
 
 const HomeScreen = () => {
-    const user = useContext(AuthContext);
-    const userToken = user?.userToken?.session_token;
-    const userName = user?.userData?.session?.glpiname;
+    const {getToken} = useContext(AuthContext);
+    //const userToken = user?.userToken?.session_token;
+    //const userName = user?.userData?.session?.glpiname;
+    //const token = await getToken();
 
-    const navTheme = {
-        colors: {
-          background: "#171717"
-        }
-      };
+    const [token, setToken] = useState({})
+    
+    //useEffect(async()=> {
+    //  const token = await getToken()
+    //  setToken(token)
+    //},[])
+
+    //const navTheme = {
+    //    colors: {
+    //      background: "#171717"
+    //    }
+    //  };
 
     return (
         <NavigationContainer independent={true}>
            
            <DrawerNavigator />
             <View>
-            <Text>SessionToken: {userToken}</Text>
-            <Text>glpiname: {userName}</Text>
+            <Text>SessionToken: </Text>
             </View>
 
         </NavigationContainer>

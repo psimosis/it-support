@@ -13,12 +13,12 @@ const MisTickets = () => {
     //console.log(userToken);
     
 
-    useEffect(()=> {
+    useEffect(async()=> {
         var config = {
             method: 'get',
             url: BASE_URL + '/Ticket/',
             headers: { 
-              'Session-Token': '' + getToken()
+              'Session-Token': '' + await getToken()
             }}
         Axios(config)
         .then(({ data }) => {

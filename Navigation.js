@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "./screens/HomeScreen";
@@ -7,15 +7,16 @@ import { AuthContext } from "./context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
+
 const Navigation = () => {
-    const {getToken} = useContext(AuthContext);
-    console.log("GetToken:")
-    console.log(getToken());
+    
+    const {getToken, estaLogueado} = useContext(AuthContext);    
+    
     return (
 
     <NavigationContainer independent={true}>
             <Stack.Navigator>
-                {getToken() ? (
+                {estaLogueado ? (
                     
                     <Stack.Screen
                         name="ORT - IT Support" 
