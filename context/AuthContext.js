@@ -2,21 +2,25 @@ import React, {createContext, useState} from "react";
 import axios from 'axios';
 import base64 from 'react-native-base64'
 import { BASE_URL } from "../config/Config";
-import AsyncStorage from 'react-native'
+import {AsyncStorage} from 'react-native'
 
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-    const [userToken, setUserToken] = useState({}); 
-    const [userData, setUserData] = useState({}); 
-    
+    //const [userData, setUserData] = useState({}); 
+    const [estaLogueado, setEstaLogueado] = useState(false);
+    const [nombreUsuario, setNombre] = useState();
+
     const setToken = async (token) =>{
-      await AsyncStorage.setItem('userToken', userToken.session_token);
+       await AsyncStorage.setItem('userToken', token);
+       setEstaLogueado(true);
     }
+    
     const getToken = async () =>{
       return await AsyncStorage.getItem('userToken');
     }
+    
     const removeToken = async () =>{
       return await AsyncStorage.removeItem('userToken');
     }
@@ -34,30 +38,27 @@ export const AuthProvider = ({children}) => {
           
           axios(config)
           .then((response)=> {
-            console.log('UserToken: ' + response.data.session_token)
             setToken(response.data.session_token);
-
           })
           .catch(function (error) {
             console.log(error);
           });
          
-          //console.log('UserToken 2: ' + JSON.stringify(userToken))
-          //const value = await AsyncStorage.getItem('userToken');
-          //console.log('UserToken 2: ' + value)
+          console.log("GetToken() Session: " + await getToken())
           var config2 = {
             method: 'get',
             url: BASE_URL + '/getFullSession/',
             headers: { 
-              'Session-Token': '' + getToken()
+              'Session-Token': '' + await getToken()
             }}
 
           axios(config2)
           .then((response)=> {
-            let userData = response.data;
-            console.log('FullSession:');
+            //let userData = response.data;
+            setNombre(response.data.session.glpifriendlyname)
+            console.log('FullSession:' + response.data.session.glpifriendlyname);
             //console.log(userData)
-            setUserData(userData);
+            //setUserData(userData);
           })
           .catch(function (error) {
             console.log('Error en la data de usuario')
@@ -94,6 +95,9 @@ export const AuthProvider = ({children}) => {
                 getToken,
                 login,
                 logout,
+                setEstaLogueado,
+                nombreUsuario,
+                estaLogueado,
             }}>
             {children}
         </AuthContext.Provider>
