@@ -6,7 +6,7 @@ const NewTicketScreen = () => {
     return (
     
         <View>
-            <Text>New Ticket </Text>
+            <Text>Nuevo Ticket </Text>
            
         </View>
 
