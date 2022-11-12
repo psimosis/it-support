@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const CustomDrawer = (props) => {
     const {logout, nombreUsuario} = useContext(AuthContext);
-
+    //console.log("RENDERICE EL CONTENT DRAWER CON EL USUARIO: " + nombreUsuario);
     return (
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}>

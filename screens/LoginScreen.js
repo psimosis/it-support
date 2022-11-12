@@ -7,9 +7,8 @@ import imagenOrt from '../images/logoort.png'
 const LoginScreen = ({navigation}) => {
     const [usuario, setUsuario] = useState(null);
     const [password, setPassword] = useState(null);
-    const {login} = useContext(AuthContext);
+    const {login, removeToken} = useContext(AuthContext);
     
-
     return (
         <View style={styles.container}>
             <Image

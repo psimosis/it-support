@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     
-    const {getToken, estaLogueado} = useContext(AuthContext);    
+    const {removeToken, estaLogueado} = useContext(AuthContext);    
     
     return (
 
