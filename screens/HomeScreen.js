@@ -5,34 +5,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { DrawerNavigator } from "../DrawerNavigator";
 
 const HomeScreen = () => {
-    const {getToken} = useContext(AuthContext);
-    //const userToken = user?.userToken?.session_token;
-    //const userName = user?.userData?.session?.glpiname;
-    //const token = await getToken();
-
-    const [token, setToken] = useState({})
-    
-    //useEffect(async()=> {
-    //  const token = await getToken()
-    //  setToken(token)
-    //},[])
-
-    //const navTheme = {
-    //    colors: {
-    //      background: "#171717"
-    //    }
-    //  };
-
+    const {tokenUsuario} = useContext(AuthContext);
+    console.log('Token Home: ' + tokenUsuario)
     return (
         <NavigationContainer independent={true}>
-           
            <DrawerNavigator />
-            <View>
-            <Text>SessionToken: </Text>
-            </View>
-
         </NavigationContainer>
-
     );
 };
 

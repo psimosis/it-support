@@ -8,25 +8,25 @@ import Icon from '@expo/vector-icons/Ionicons'
 
 const MisTickets = () => {
     const[data, setData] = useState({});
-    const {user, getToken} = useContext(AuthContext);
-    //const userToken = user.userToken.session_token;
-    //console.log(userToken);
-    
+    const {getToken} = useContext(AuthContext);
 
-    useEffect(async()=> {
+    useEffect(()=> {
+      const fetchTikcets = async () =>{
         var config = {
-            method: 'get',
-            url: BASE_URL + '/Ticket/',
-            headers: { 
-              'Session-Token': '' + await getToken()
-            }}
-        Axios(config)
-        .then(({ data }) => {
-            setData(data)
-          })
-        .catch(function (error) {
-            console.log(error);
-          })
+          method: 'get',
+          url: BASE_URL + '/Ticket/',
+          headers: { 
+            'Session-Token': '' + await getToken()
+          }}
+      Axios(config)
+      .then(({ data }) => {
+          setData(data)
+        })
+      .catch(function (error) {
+          console.log(error);
+        })
+      }
+      fetchTikcets()
     },[]);
  
     const { width } = useWindowDimensions();

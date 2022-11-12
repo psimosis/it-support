@@ -4,8 +4,7 @@ import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawe
 import { AuthContext } from "../context/AuthContext";
 
 const CustomDrawer = (props) => {
-    const {logout, nombreUsuario} = useContext(AuthContext);
-    //console.log("RENDERICE EL CONTENT DRAWER CON EL USUARIO: " + nombreUsuario);
+    const {logout, datosUsuario} = useContext(AuthContext);
     return (
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}>
@@ -16,13 +15,12 @@ const CustomDrawer = (props) => {
                             source={require('../images/logoflor.png')}
                             style={{height:80, width: 80, borderRadius:40, marginBottom: 10}}
                         />
-                        <Text style={{color: 'Black', fontSize: 18, fontWeight: 'bold'}}>{nombreUsuario}</Text>
-                        <Text style={{color: 'Black', fontSize: 12, }}>Texnico Local</Text>
-                        <Text style={{color: 'Black', fontSize: 12, fontWeight: 'bold'}}>Sede: Belgrano</Text>
+                        <Text style={{color: 'Black', fontSize: 18, fontWeight: 'bold'}}>{datosUsuario.nombre}</Text>
+                        <Text style={{color: 'Black', fontSize: 12, }}>{datosUsuario.perfil}</Text>
+                        <Text style={{color: 'Black', fontSize: 12, fontWeight: 'bold'}}>Sede: {datosUsuario.entidad}</Text>
                 </ImageBackground>
                 <DrawerItemList {...props} />
             </DrawerContentScrollView>
-            
             <View style={{padding:20,borderTopWidth:1,borderTopColor:'Grey'}}>
                 <Button title="Logout" color="grey" onPress={logout} />
             </View>
@@ -30,5 +28,4 @@ const CustomDrawer = (props) => {
         </View>
     )
 }
-
 export default CustomDrawer

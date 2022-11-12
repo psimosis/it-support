@@ -10,13 +10,13 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     
-    const {removeToken, estaLogueado} = useContext(AuthContext);    
+    const {tokenUsuario, estaLogueado} = useContext(AuthContext);    
     
     return (
 
     <NavigationContainer independent={true}>
             <Stack.Navigator>
-                {estaLogueado ? (
+                {tokenUsuario ? (
                     
                     <Stack.Screen
                         name="ORT - IT Support" 
