@@ -9,7 +9,7 @@ import Icon from '@expo/vector-icons/Ionicons'
 const MisTickets = () => {
     const[data, setData] = useState({});
     const {getToken} = useContext(AuthContext);
-
+   
     useEffect(()=> {
       const fetchTikcets = async () =>{
         var config = {
