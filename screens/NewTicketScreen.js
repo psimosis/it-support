@@ -27,12 +27,12 @@ const NewTicketScreen = () => {
                 <Text style={styles.campoTitulo}>Criticidad</Text>
 
                 <Picker 
-                  selectedValue={'3'}
+                  selectedValue={selectedValue}
                   style={styles.criticidad}
                   onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+                  <Picker.Item label = 'Media' value= '3'/>
                   <Picker.Item label = 'Muy Urgente' value="5" />
                   <Picker.Item label = 'Urgente' value= '4'/>
-                  <Picker.Item label = 'Media' value= '3'/>
                   <Picker.Item label = 'Baja' value= '2'/>
                   <Picker.Item label = 'Muy Baja' value= '1'/>
                 </Picker>
