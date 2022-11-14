@@ -31,6 +31,73 @@ const MisTickets = () => {
  
     const { width } = useWindowDimensions();
 
+    const criticidad = (value) =>{
+
+      switch(value) {
+        case 1:
+          return 'Muy Baja';
+          break;
+        
+        case 2:
+          return 'Baja';
+          break;
+    
+        case 3:
+          return 'Media';
+          break;
+    
+        case 4:
+          return 'Urgente';
+          break;
+        
+        case 5:
+          return 'Muy Urgente';
+          break;
+
+        default:
+          return ''
+      }
+      console.log('Criticidad Texto: ' + value)
+      return texto;
+    }
+
+    const estado = (value) =>{
+
+      switch(value) {
+        case 1:
+          return 'Nuevo';
+          break;
+        
+        case 2:
+          return 'En curso (Asignado)';
+          break;
+    
+        case 3:
+          return 'En curso (Planificado)';
+          break;
+    
+        case 4:
+          return 'En Epera';
+          break;
+        
+        case 5:
+          return 'Resuelto';
+          break;
+
+        case 6:
+          return 'Cerrado';
+          break;
+
+
+        default:
+          return ''
+      }
+      console.log('Criticidad Texto: ' + value)
+      return texto;
+    }
+    
+
+
     return (
               
     <View style={styles.container}>
@@ -42,7 +109,7 @@ const MisTickets = () => {
             <TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}> 
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{flex:1}}>Estado: {item.status}</Text>
+                  <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
                   <Text style={{flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{item.id}</Text>
                 </View>
                 <Text style={styles.titleText}>{item.name}</Text>
@@ -52,9 +119,8 @@ const MisTickets = () => {
                 </Text>
                 <View style={{flex: 1, height: 7}} />
                 <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-                <View style={{flex: 1, height: 7}} />
-                <Text style={{color:'blue'}}>Criticidad: {item.urgency}</Text>
-
+                <Text style={{color:'blue'}}>Criticidad: {criticidad(item.urgency)}</Text>
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
                 <Text>
                   <RenderHtml
                     contentWidth={width}
@@ -70,6 +136,9 @@ const MisTickets = () => {
 }
 
 export default MisTickets;
+
+
+
 
 const styles = StyleSheet.create({
     container: {
