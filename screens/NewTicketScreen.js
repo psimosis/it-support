@@ -1,33 +1,23 @@
 import React, {useState, useContext} from "react";
-import {Text,View, StyleSheet,Button,TouchableOpacity,TextInput, Alert} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {Text,View, StyleSheet,Button,TextInput, Alert} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
-import { useNavigation } from '@react-navigation/native';
+//import { useNavigation } from '@react-navigation/native';
 
 const NewTicketScreen = () => {
     const [tituloTicket, setTituloTicket] = useState({})
     const [descripcionTicket, setDescripTicket] = useState({})
     const {tokenUsuario} = useContext(AuthContext);
-
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-      {label: 'Muy Urgente', value: '1'},
-      {label: 'Urgente', value: '2'},
-      {label: 'Media', value: '3'},
-      {label: 'Baja', value: '4'},
-      {label: 'Muy Baja', value: '5'},
-    ]);
-
-    
+    const [selectedValue, setSelectedValue] = useState(3)
 
     return (
     
         <View>
             <View style={styles.card}>
                 <Text style={styles.campoTitulo}>Titulo</Text>
+                
                 <TextInput
                     style={styles.titulo} 
                     //placeholder="Titulo"
@@ -35,16 +25,18 @@ const NewTicketScreen = () => {
                     onChangeText={titulo => setTituloTicket(titulo)}
                 />
                 <Text style={styles.campoTitulo}>Criticidad</Text>
-                <DropDownPicker style={styles.criticidad}
-                    listMode="FLATLIST"
-                    language="ES"
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                />
+
+                <Picker 
+                  selectedValue={'3'}
+                  style={styles.criticidad}
+                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+                  <Picker.Item label = 'Muy Urgente' value="5" />
+                  <Picker.Item label = 'Urgente' value= '4'/>
+                  <Picker.Item label = 'Media' value= '3'/>
+                  <Picker.Item label = 'Baja' value= '2'/>
+                  <Picker.Item label = 'Muy Baja' value= '1'/>
+                </Picker>
+
                 <Text style={styles.campoTitulo}>Descripcion</Text>
                 
                 <TextInput 
@@ -55,7 +47,7 @@ const NewTicketScreen = () => {
                     multiline={true}
                     numberOfLines={10}
                 />
-                <Button style={styles.colorBtn}  title="Crear" onPress={() => enviarTicket(tituloTicket,descripcionTicket,tokenUsuario)}/>
+                <Button style={styles.colorBtn}  title="Crear" onPress={() => enviarTicket(tituloTicket,descripcionTicket,selectedValue,tokenUsuario)}/>
 
             </View>
            
@@ -64,15 +56,15 @@ const NewTicketScreen = () => {
     );
 };
 
-const enviarTicket= (tituloTicket,descipcionTicket,tokenUsuario) =>{
+const enviarTicket= (tituloTicket,descipcionTicket,selectedValue,tokenUsuario) =>{
 
   var data = {
     "input": {
       "name": "" + tituloTicket,
       "content": "" + descipcionTicket,
-      "priority": "1",
-      "impact": "4",
-      "urgency": "5",
+      "priority": "5",
+      "impact": "3",
+      "urgency": + selectedValue,
       "type": "2",
       "itilcategories_id": "1"
     }
@@ -118,10 +110,9 @@ const styles = StyleSheet.create({
     },
 
     criticidad:{
-      marginTop: 10,
-      marginBottom: 5,
       height:43,
       width: 200,
+      color: "midnightblue",
     },
    
     campoTitulo: {
