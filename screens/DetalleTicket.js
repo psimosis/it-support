@@ -5,9 +5,8 @@ import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
 import RenderHtml from 'react-native-render-html';
 import Icon from '@expo/vector-icons/Ionicons'
-import detalleTicket from "../screens/DetalleTicket";
 
-const MisTickets = () => {
+const detalleTicket = (idTicket) => {
     const[data, setData] = useState({});
     const {getToken} = useContext(AuthContext);
    
@@ -15,7 +14,7 @@ const MisTickets = () => {
       const fetchTikcets = async () =>{
         var config = {
           method: 'get',
-          url: BASE_URL + '/Ticket/',
+          url: BASE_URL + '/Ticket/' + id,
           headers: { 
             'Session-Token': '' + await getToken()
           }}
@@ -102,12 +101,7 @@ const MisTickets = () => {
     return (
               
     <View style={styles.container}>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={() => <View style={{height: 7}} />}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={() => detalleTicket(item.id)}> 
+        renderItem={({item}) => (
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
@@ -129,14 +123,12 @@ const MisTickets = () => {
                   />
                   </Text>
             </View>
-            </TouchableOpacity>
           )}
-        />
     </View>
     );
 }
 
-export default MisTickets;
+export default detalleTicket;
 
 
 
