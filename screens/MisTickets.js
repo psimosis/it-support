@@ -95,8 +95,6 @@ const MisTickets = () => {
       console.log('Criticidad Texto: ' + value)
       return texto;
     }
-    
-
 
     return (
               
@@ -110,7 +108,7 @@ const MisTickets = () => {
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
-                  <Text style={{flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{item.id}</Text>
+                  <Text style={{padding:1, borderRadius: 0.8,flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{item.id}</Text>
                 </View>
                 <Text style={styles.titleText}>{item.name}</Text>
                 <View style={{flex: 1, height: 7}} />
@@ -136,9 +134,6 @@ const MisTickets = () => {
 }
 
 export default MisTickets;
-
-
-
 
 const styles = StyleSheet.create({
     container: {

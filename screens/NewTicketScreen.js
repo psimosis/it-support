@@ -4,13 +4,59 @@ import {Picker} from '@react-native-picker/picker';
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
-//import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const NewTicketScreen = () => {
     const [tituloTicket, setTituloTicket] = useState({})
     const [descripcionTicket, setDescripTicket] = useState({})
     const {tokenUsuario} = useContext(AuthContext);
     const [selectedValue, setSelectedValue] = useState(3)
+    const navegator = useNavigation();
+
+    const enviarTicket= (tituloTicket,descipcionTicket,selectedValue,tokenUsuario) =>{
+
+      var data = {
+        "input": {
+          "name": "" + tituloTicket,
+          "content": "" + descipcionTicket,
+          "priority": "5",
+          "impact": "3",
+          "urgency": + selectedValue,
+          "type": "2",
+          "itilcategories_id": "1"
+        }
+      };
+    
+      axios.post(BASE_URL + '/Ticket/',data,{
+        headers: {
+          'Session-Token': '' + tokenUsuario,
+        }
+        })
+      .then((response) => {
+        console.log("Envie el Ticket: " + tituloTicket)
+        console.log(response.data)
+        //alert(response.data.message)
+        //alert("Crear Ticket:",response.data.message)
+        splashTicket(response.data.message)
+        navegator.navigate('Mis Tickets')
+      })
+      .catch(e => {
+        console.log('Error en el envio del Ticket '+ tituloTicket);
+        console.log("Descripcion del Ticket: " + descipcionTicket)
+        console.log('Session Token Envio: '+ tokenUsuario);
+      })
+    }
+
+    const splashTicket = (texto) => {
+      //const navegator = useNavigation();
+      Alert.alert('Crear Ticket',texto)
+      //navegator.navigate('Mis Tickets')
+     }
+     
+
+
+
+
 
     return (
     
@@ -56,44 +102,8 @@ const NewTicketScreen = () => {
     );
 };
 
-const enviarTicket= (tituloTicket,descipcionTicket,selectedValue,tokenUsuario) =>{
 
-  var data = {
-    "input": {
-      "name": "" + tituloTicket,
-      "content": "" + descipcionTicket,
-      "priority": "5",
-      "impact": "3",
-      "urgency": + selectedValue,
-      "type": "2",
-      "itilcategories_id": "1"
-    }
-  };
 
-  axios.post(BASE_URL + '/Ticket/',data,{
-    headers: {
-      'Session-Token': '' + tokenUsuario,
-    }
-    })
-  .then((response) => {
-    console.log("Envie el Ticket: " + tituloTicket)
-    console.log(response.data)
-    alert(response.data.message)
-    //alert("Crear Ticket:",response.data.message)
-    //splashTicket(response.data.message)
-  })
-  .catch(e => {
-    console.log('Error en el envio del Ticket '+ tituloTicket);
-    console.log("Descripcion del Ticket: " + descipcionTicket)
-    console.log('Session Token Envio: '+ tokenUsuario);
-  })
-}
-
-const splashTicket = (texto) => {
- //const navegator = useNavigation();
- Alert.alert('Crear Ticket',texto)
- //navegator.navigate('Mis Tickets')
-}
 
 
 
