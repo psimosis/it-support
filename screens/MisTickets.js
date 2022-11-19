@@ -101,10 +101,7 @@ const MisTickets = () => {
       return texto;
     }
 
-    const showTickeDetail = (value) =>{
-      navigator.navigate('Detalle Ticket', {id:value})
-    }
-
+    
 
     return (
               
@@ -114,8 +111,8 @@ const MisTickets = () => {
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <View style={{height: 7}} />}
           renderItem={({item}) => (
-            //<TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}> 
-            <TouchableOpacity onPress={() => showTickeDetail(item.id)}> 
+            //<TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}>
+            <TouchableOpacity onPress={() =>  navigator.navigate('Detalle Ticket', {item})}>
             
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>

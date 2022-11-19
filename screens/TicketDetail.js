@@ -5,15 +5,14 @@ import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
 import RenderHtml from 'react-native-render-html';
 import Icon from '@expo/vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native';
+//import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-const TicketDetail = ({idTicket}) => {
-  const navigator = useNavigation();
+const TicketDetail = () => {
   const[data, setData] = useState({});
-    const {getToken} = useContext(AuthContext);
-    const { itemId } = idTicket.params;
-    
+  const {getToken} = useContext(AuthContext);
+
+
     useEffect(()=> {
       const fetchTikcets = async () =>{
         var config = {
@@ -108,7 +107,7 @@ const TicketDetail = ({idTicket}) => {
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <View style={{height: 7}} />}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={() => alert("Detalle del ticket nro:" + itemId.id)}> 
+            <TouchableOpacity onPress={() => alert("Detalle del ticket nro:" + item.id)}> 
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
