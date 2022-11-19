@@ -1,18 +1,18 @@
 import React, {useEffect, useState, useContext, FlatList} from "react";
-import {Text,View, StyleSheet} from 'react-native';
+import {Text,View, StyleSheet,ScrollView} from 'react-native';
 import Axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
 import Icon from '@expo/vector-icons/Ionicons'
-import { ScrollView } from "react-native-gesture-handler";
+
 
 const TicketDetail = ({route}) => {
 
   const[data, setData] = useState({});
-  const[seguimientos, setSeguimientos] = useState([]) 
   const {getToken} = useContext(AuthContext);
   const {itemID} = route.params
-    
+  const[seguimientos, setSeguimientos] = useState([])     
+
   useEffect(()=> {
     
       const fetchTikcets = async () =>{
@@ -23,9 +23,10 @@ const TicketDetail = ({route}) => {
             'Session-Token': '' + await getToken()
           }}
       Axios(config)
-      .then(({ data }) => {
+      .then(async({ data }) => {
           setData(data)
-        })
+          getSeguimientos(await getToken(), itemID)        
+       })
       .catch(function (error) {
           console.log(error);
         })
@@ -59,7 +60,7 @@ const TicketDetail = ({route}) => {
         default:
           return ''
       }
-      console.log('Criticidad Texto: ' + value)
+      //console.log('Criticidad Texto: ' + value)
       return texto;
     }
     const criticidadColor = (value) =>{
@@ -120,9 +121,29 @@ const TicketDetail = ({route}) => {
         default:
           return ''
       }
-      console.log('Criticidad Texto: ' + value)
+      //console.log('Criticidad Texto: ' + value)
       return texto;
     }
+    const getSeguimientos = (token,itemID)=>{
+      var config2 = {
+        method: 'get',
+        url: BASE_URL + '/Ticket/' + itemID + '/ITILFollowup/',
+        headers: { 
+          'Session-Token': '' + token}
+      }
+
+      Axios(config2)
+        .then((response)=> {
+          console.log('Respuesta de Axios para el Seguimiento:')
+          console.log(response)
+          setSeguimientos(response.data)
+        })
+        .catch(function (error) {
+          console.log('Error: ')
+          //console.log(error);
+        });
+    }
+  
 
     return (
     <View style={styles.container}>
@@ -138,22 +159,33 @@ const TicketDetail = ({route}) => {
 
           <Text style={{padding:3}}><Icon name="calendar-outline" size={20} color="#3143e8" />  {data.date}</Text>
           <View style={styles.horizontalLine}/>
-          <Text style={{color:'blue'}}>Criticidad :  
+          <Text style={{color:'midnightblue'}}>Criticidad :  
             <Text style={criticidadColor(data.urgency)}> 
               {criticidad(data.urgency)}
             </Text>
           </Text>
 
           <View style={styles.horizontalLine}/>
-          <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'center'}}>Descripcion</Text>
+          <Text style={{backgroundColor:'midnightblue', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'center'}}>Descripcion</Text>
           <Text style={{padding:5, fontSize:16}}>{data.content}</Text>
         
           <View style={{flex: 1, height: 7}} />
           <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
         </View>
+        <View>
+            {seguimientos.map((item) => {
+            return (
 
+              <View style = {styles.card}>
+                <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Seguimiento</Text>
+                <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date}</Text>
+                <Text style={{fontSize:15}}>{item.content}</Text>
+              </View>
+            )
+            })}
         
-      </ScrollView>
+        </View>
+        </ScrollView> 
     </View>
     );
 }
