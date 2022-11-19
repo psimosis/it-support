@@ -6,7 +6,6 @@ import MisTickets from "./screens/MisTickets";
 import TicketDetail from "./screens/TicketDetail"
 import Ionicons from '@expo/vector-icons/Ionicons'
 import CustomDrawer from "./custom/CustomDrawer"
-import { View, StyleSheet } from "react-native";
 
 const Drawer = createDrawerNavigator()
 
@@ -58,8 +57,11 @@ export function DrawerNavigator() {
                 options={{
                     headerStyle: {backgroundColor: 'midnightblue',},
                     headerTintColor: 'white',
-                    unmountOnBlur:false,
+                    unmountOnBlur:true,
                     title: "Detalle del Ticket",
+                    drawerItemStyle: {
+                        display: "none",
+                      },
                 }}  />
         </Drawer.Navigator>
     )

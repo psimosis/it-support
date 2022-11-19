@@ -1,24 +1,24 @@
-import React, {useEffect, useState, useContext} from "react";
-import {TouchableOpacity, FlatList, Text,View, StyleSheet, useWindowDimensions} from 'react-native';
+import React, {useEffect, useState, useContext, FlatList} from "react";
+import {Text,View, StyleSheet} from 'react-native';
 import Axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
-import RenderHtml from 'react-native-render-html';
 import Icon from '@expo/vector-icons/Ionicons'
-//import { useNavigation, useRoute } from '@react-navigation/native';
-
+import { ScrollView } from "react-native-gesture-handler";
 
 const TicketDetail = ({route}) => {
-  const[data, setData] = useState({});
-  const {getToken} = useContext(AuthContext);
 
-  /*  
+  const[data, setData] = useState({});
+  const[seguimientos, setSeguimientos] = useState([]) 
+  const {getToken} = useContext(AuthContext);
+  const {itemID} = route.params
+    
   useEffect(()=> {
     
       const fetchTikcets = async () =>{
         var config = {
           method: 'get',
-          url: BASE_URL + '/Ticket/',
+          url: BASE_URL + '/Ticket/' + itemID,
           headers: { 
             'Session-Token': '' + await getToken()
           }}
@@ -32,11 +32,6 @@ const TicketDetail = ({route}) => {
       }
       fetchTikcets()
     },[]);
- */
-   const {itemID} = route.params
-    alert(itemID)
-
-    const { width } = useWindowDimensions();
 
     const criticidad = (value) =>{
 
@@ -67,7 +62,33 @@ const TicketDetail = ({route}) => {
       console.log('Criticidad Texto: ' + value)
       return texto;
     }
+    const criticidadColor = (value) =>{
 
+      switch(value) {
+        case 1:
+          return styles.estadoCritico;
+          break;
+        
+        case 2:
+          return styles.criticidadBaja;
+          break;
+    
+        case 3:
+          return styles.criticidadMedia;
+          break;
+    
+        case 4:
+          return styles.criticidadUrgente;
+          break;
+        
+        case 5:
+          return styles.criticidadMuyUrgente;
+          break;
+
+        default:
+          return ''
+      }
+    }
     const estado = (value) =>{
 
       switch(value) {
@@ -104,38 +125,35 @@ const TicketDetail = ({route}) => {
     }
 
     return (
-              
     <View style={styles.container}>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={() => <View style={{height: 7}} />}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={() => alert("Detalle del ticket nro:" + item.id)}> 
-            <View style = {styles.card}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
-                  <Text style={{padding:1, borderRadius: 0.8,flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{item.id}</Text>
-                </View>
-                <Text style={styles.titleText}>{item.name}</Text>
-                <View style={{flex: 1, height: 7}} />
-                <Text>
-                  <Icon name="calendar-outline" size={20} color="#3143e8" />  {item.date}
-                </Text>
-                <View style={{flex: 1, height: 7}} />
-                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-                <Text style={{color:'blue'}}>Criticidad: {criticidad(item.urgency)}</Text>
-                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-                <Text>
-                  <RenderHtml
-                    contentWidth={width}
-                    source={{html: item.content }}
-                  />
-                  </Text>
-            </View>
-            </TouchableOpacity>
-          )}
-        />
+      <ScrollView>
+        <View style = {styles.card}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{flex:1}}>Estado: {estado(data.status)}</Text>
+            <Text style={{padding:1, borderRadius: 0.8,flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{data.id}</Text>
+          </View>
+        
+          <Text style={styles.titleText}>{data.name}</Text>
+          <View style={styles.horizontalLine}/>
+
+          <Text style={{padding:3}}><Icon name="calendar-outline" size={20} color="#3143e8" />  {data.date}</Text>
+          <View style={styles.horizontalLine}/>
+          <Text style={{color:'blue'}}>Criticidad :  
+            <Text style={criticidadColor(data.urgency)}> 
+              {criticidad(data.urgency)}
+            </Text>
+          </Text>
+
+          <View style={styles.horizontalLine}/>
+          <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'center'}}>Descripcion</Text>
+          <Text style={{padding:5, fontSize:16}}>{data.content}</Text>
+        
+          <View style={{flex: 1, height: 7}} />
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        </View>
+
+        
+      </ScrollView>
     </View>
     );
 }
@@ -143,6 +161,24 @@ const TicketDetail = ({route}) => {
 export default TicketDetail;
 
 const styles = StyleSheet.create({
+    criticidadMuyBaja:{
+      color: 'green',
+      fontWeight: 'bold',
+    },
+    criticidadBaja:{
+      color:'green',
+    },
+    criticidadMedia:{
+      color:'goldenrod',
+      fontWeight: 'bold',
+    },
+    criticidadUrgente:{
+    color:'red',
+    },
+    criticidadMuyUrgente:{
+      color: 'red',
+      fontWeight: 'bold',
+    },
     container: {
         width: "100%",
         padding: 10,
@@ -159,8 +195,26 @@ const styles = StyleSheet.create({
         borderRadius: 7,
     },
     titleText: {
+        padding: 3,
         fontSize: 20,
         fontWeight: "bold",
         color: "midnightblue"
+    },
+    horizontalLine: {
+      padding: 3, 
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    EmptytextHeader: {
+      paddingTop: 10,
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center'
+    },
+    EmptyMassage: {
+      color:'lightgrey',
+      fontWeight: '700',
+      fontSize: 12,
+      fontStyle: 'normal',
     },
   });

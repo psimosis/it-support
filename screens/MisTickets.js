@@ -3,18 +3,14 @@ import {TouchableOpacity, FlatList, Text,View, StyleSheet, useWindowDimensions} 
 import Axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
-import RenderHtml from 'react-native-render-html';
 import Icon from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
-import TicketDetail from "./TicketDetail";
-
 
 const MisTickets = () => {
-    const[data, setData] = useState({});
+    const[data, setData] = useState([]);
     const {getToken} = useContext(AuthContext);
     const navigator = useNavigation();
-    const [idTicket, setIdTicket] = useState()
- 
+
     useEffect(()=> {
       const fetchTikcets = async () =>{
         var config = {
@@ -33,8 +29,6 @@ const MisTickets = () => {
       }
       fetchTikcets()
     },[]);
- 
-    const { width } = useWindowDimensions();
 
     const criticidad = (value) =>{
 
@@ -64,6 +58,34 @@ const MisTickets = () => {
       }
       console.log('Criticidad Texto: ' + value)
       return texto;
+    }
+
+    const criticidadColor = (value) =>{
+
+      switch(value) {
+        case 1:
+          return styles.estadoCritico;
+          break;
+        
+        case 2:
+          return styles.criticidadBaja;
+          break;
+    
+        case 3:
+          return styles.criticidadMedia;
+          break;
+    
+        case 4:
+          return styles.criticidadUrgente;
+          break;
+        
+        case 5:
+          return styles.criticidadMuyUrgente;
+          break;
+
+        default:
+          return ''
+      }
     }
 
     const estado = (value) =>{
@@ -101,15 +123,20 @@ const MisTickets = () => {
       return texto;
     }
 
-    
-
     return (
               
     <View style={styles.container}>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
+          
+          ListEmptyComponent={
+            <View style= {styles.EmptytextHeader}>
+              <Text style={styles.EmptyMassage}>NO HAY TICKETS PARA MOSTRAR</Text>
+            </View>}
+          
           ItemSeparatorComponent={() => <View style={{height: 7}} />}
+          
           renderItem={({item}) => (
             //<TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}>
             <TouchableOpacity onPress={() =>  navigator.navigate('Detalle Ticket', {itemID: item.id})}>
@@ -125,14 +152,11 @@ const MisTickets = () => {
                 </Text>
                 <View style={{flex: 1, height: 7}} />
                 <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-                <Text style={{color:'blue'}}>Criticidad: {criticidad(item.urgency)}</Text>
-                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-                <Text>
-                  <RenderHtml
-                    contentWidth={width}
-                    source={{html: item.content }}
-                  />
+                <Text style={{color:'blue'}}>Criticidad :  
+                  <Text style={criticidadColor(item.urgency)}> 
+                    {criticidad(item.urgency)}
                   </Text>
+                </Text>
             </View>
             </TouchableOpacity>
           )}
@@ -144,6 +168,25 @@ const MisTickets = () => {
 export default MisTickets;
 
 const styles = StyleSheet.create({
+
+    criticidadMuyBaja:{
+      color: 'green',
+      fontWeight: 'bold',
+    },
+    criticidadBaja:{
+      color:'green',
+    },
+    criticidadMedia:{
+      color:'goldenrod',
+      fontWeight: 'bold',
+    },
+    criticidadUrgente:{
+      color:'red',
+    },
+    criticidadMuyUrgente:{
+      color: 'red',
+      fontWeight: 'bold',
+    },
     container: {
         width: "100%",
         padding: 10,
@@ -163,5 +206,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         color: "midnightblue"
+    },
+    EmptytextHeader: {
+      paddingTop: 200,
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center'
+    },
+    EmptyMassage: {
+      color:'lightgrey',
+      fontWeight: '700',
+      fontSize: 16,
+      fontStyle: 'normal',
     },
   });
