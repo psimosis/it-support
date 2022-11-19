@@ -8,12 +8,13 @@ import Icon from '@expo/vector-icons/Ionicons'
 //import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-const TicketDetail = () => {
+const TicketDetail = ({route}) => {
   const[data, setData] = useState({});
   const {getToken} = useContext(AuthContext);
 
-
-    useEffect(()=> {
+  /*  
+  useEffect(()=> {
+    
       const fetchTikcets = async () =>{
         var config = {
           method: 'get',
@@ -31,7 +32,10 @@ const TicketDetail = () => {
       }
       fetchTikcets()
     },[]);
- 
+ */
+   const {itemID} = route.params
+    alert(itemID)
+
     const { width } = useWindowDimensions();
 
     const criticidad = (value) =>{
