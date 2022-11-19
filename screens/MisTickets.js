@@ -112,8 +112,7 @@ const MisTickets = () => {
           ItemSeparatorComponent={() => <View style={{height: 7}} />}
           renderItem={({item}) => (
             //<TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}>
-            <TouchableOpacity onPress={() =>  navigator.navigate('Detalle Ticket', {item})}>
-            
+            <TouchableOpacity onPress={() =>  navigator.navigate('Detalle Ticket', {itemID: item.id})}>
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
