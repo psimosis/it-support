@@ -6,15 +6,14 @@ import { BASE_URL } from "../config/Config";
 import RenderHtml from 'react-native-render-html';
 import Icon from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
-import TicketDetail from "./TicketDetail";
 
 
-const MisTickets = () => {
-    const[data, setData] = useState({});
+const TicketDetail = ({idTicket}) => {
+  const navigator = useNavigation();
+  const[data, setData] = useState({});
     const {getToken} = useContext(AuthContext);
-    const navigator = useNavigation();
-    const [idTicket, setIdTicket] = useState()
- 
+    const { itemId } = idTicket.params;
+    
     useEffect(()=> {
       const fetchTikcets = async () =>{
         var config = {
@@ -101,11 +100,6 @@ const MisTickets = () => {
       return texto;
     }
 
-    const showTickeDetail = (value) =>{
-      navigator.navigate('Detalle Ticket', {id:value})
-    }
-
-
     return (
               
     <View style={styles.container}>
@@ -114,9 +108,7 @@ const MisTickets = () => {
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <View style={{height: 7}} />}
           renderItem={({item}) => (
-            //<TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}> 
-            <TouchableOpacity onPress={() => showTickeDetail(item.id)}> 
-            
+            <TouchableOpacity onPress={() => alert("Detalle del ticket nro:" + itemId.id)}> 
             <View style = {styles.card}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
@@ -145,7 +137,7 @@ const MisTickets = () => {
     );
 }
 
-export default MisTickets;
+export default TicketDetail;
 
 const styles = StyleSheet.create({
     container: {

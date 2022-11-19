@@ -3,9 +3,7 @@ import axios from 'axios';
 import axios2 from 'axios';
 import base64 from 'react-native-base64'
 import { BASE_URL } from "../config/Config";
-import {AsyncStorage} from 'react-native'
-
-
+import {Alert, AsyncStorage, View} from 'react-native'
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
@@ -28,7 +26,6 @@ export const AuthProvider = ({children}) => {
     }
 
     const login = async (usuario,password) => {
-
       var usrPass64 = base64.encode(usuario + ':' + password);
       var config = {
         method: 'get',
@@ -45,6 +42,7 @@ export const AuthProvider = ({children}) => {
         })
         .catch(function (error) {
           console.log("Error: "+ error);
+          Alert.alert ('Login: Error', 'Usuario o Contraseña Incorrecta')
         });
     }
     
@@ -81,7 +79,6 @@ export const AuthProvider = ({children}) => {
     }
  
     const logout = async() => {
-      
       var config = {
         method: 'get',
         url: BASE_URL + '/killSession/',
@@ -99,7 +96,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider 
+       <AuthContext.Provider 
             value={{
                 removeToken,
                 getToken,

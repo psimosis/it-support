@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import NewTicketScreen from "./screens/NewTicketScreen";
 import MisTickets from "./screens/MisTickets";
+import TicketDetail from "./screens/TicketDetail"
 import Ionicons from '@expo/vector-icons/Ionicons'
 import CustomDrawer from "./custom/CustomDrawer"
 import { View, StyleSheet } from "react-native";
@@ -50,6 +51,15 @@ export function DrawerNavigator() {
                             size={size}
                             color={focused ? 'midnightblue' : '#000000'}  />
                     ),
+                }}  />
+
+                <Drawer.Screen name = "Detalle Ticket" 
+                component = {TicketDetail}
+                options={{
+                    headerStyle: {backgroundColor: 'midnightblue',},
+                    headerTintColor: 'white',
+                    unmountOnBlur:false,
+                    title: "Detalle del Ticket",
                 }}  />
         </Drawer.Navigator>
     )
