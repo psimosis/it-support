@@ -4,8 +4,6 @@ import {AuthContext } from '../context/AuthContext';
 import imagen from '../images/logo.png'
 import imagenOrt from '../images/logoort.png'
 import CustomAlert from '../components/CustomAlert';
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const LoginScreen = ({navigation}) => {
     const [usuario, setUsuario] = useState(null);
@@ -15,13 +13,13 @@ const LoginScreen = ({navigation}) => {
     
     return (
         <View style={styles.container}>
+            
             <CustomAlert
                 visible={alertVisible}
                 titulo={'Acceso Incorrecto'}
                 mensaje={'USUARIO O CONTRASEÑA INCORRECTO. \n\nIntentelo nuevamente o contactese con un Administrador'}
                 aceptarButton={() => setAlertVisible(false)}
             />
-            
             <Image
                 source={imagen}
                 style={styles.image}
@@ -54,8 +52,6 @@ const LoginScreen = ({navigation}) => {
 };
 
 const pantalla = Dimensions.get('screen');
-
-
 
 const styles = StyleSheet.create({
     container: {

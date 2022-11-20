@@ -64,7 +64,7 @@ const MisTickets = () => {
 
       switch(value) {
         case 1:
-          return styles.estadoCritico;
+          return styles.criticidadMuyBaja;
           break;
         
         case 2:

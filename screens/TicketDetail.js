@@ -4,7 +4,7 @@ import Axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
 import Icon from '@expo/vector-icons/Ionicons'
-
+import ActionCard from '../components/ActionCard'
 
 const TicketDetail = ({route}) => {
 
@@ -12,9 +12,10 @@ const TicketDetail = ({route}) => {
   const {getToken} = useContext(AuthContext);
   const {itemID} = route.params
   const[seguimientos, setSeguimientos] = useState([])     
+  const[tareas, setTareas] = useState([])
+  const[soluciones, setSoluciones] = useState([])
 
   useEffect(()=> {
-    
       const fetchTikcets = async () =>{
         var config = {
           method: 'get',
@@ -25,7 +26,9 @@ const TicketDetail = ({route}) => {
       Axios(config)
       .then(async({ data }) => {
           setData(data)
-          getSeguimientos(await getToken(), itemID)        
+          getSeguimientos(await getToken(), itemID)
+          getTareas(await getToken(), itemID)
+          getSoluciones(await getToken(), itemID)        
        })
       .catch(function (error) {
           console.log(error);
@@ -35,7 +38,6 @@ const TicketDetail = ({route}) => {
     },[]);
 
     const criticidad = (value) =>{
-
       switch(value) {
         case 1:
           return 'Muy Baja';
@@ -60,11 +62,8 @@ const TicketDetail = ({route}) => {
         default:
           return ''
       }
-      //console.log('Criticidad Texto: ' + value)
-      return texto;
     }
     const criticidadColor = (value) =>{
-
       switch(value) {
         case 1:
           return styles.estadoCritico;
@@ -91,7 +90,6 @@ const TicketDetail = ({route}) => {
       }
     }
     const estado = (value) =>{
-
       switch(value) {
         case 1:
           return 'Nuevo';
@@ -122,7 +120,7 @@ const TicketDetail = ({route}) => {
           return ''
       }
       //console.log('Criticidad Texto: ' + value)
-      return texto;
+      //return texto;
     }
     const getSeguimientos = (token,itemID)=>{
       var config2 = {
@@ -134,8 +132,8 @@ const TicketDetail = ({route}) => {
 
       Axios(config2)
         .then((response)=> {
-          console.log('Respuesta de Axios para el Seguimiento:')
-          console.log(response)
+          //console.log('Respuesta de Axios para el Seguimiento:')
+          //console.log(response)
           setSeguimientos(response.data)
         })
         .catch(function (error) {
@@ -143,7 +141,38 @@ const TicketDetail = ({route}) => {
           //console.log(error);
         });
     }
-  
+    const getTareas = (token,itemID)=>{
+      var config2 = {
+        method: 'get',
+        url: BASE_URL + '/Ticket/' + itemID + '/TicketTask/',
+        headers: { 
+          'Session-Token': '' + token}
+      }
+
+      Axios(config2)
+        .then((response)=> {
+          setTareas(response.data)
+        })
+        .catch(function (error) {
+          console.log('Error: ')
+        });
+    }
+    const getSoluciones = (token,itemID)=>{
+      var config2 = {
+        method: 'get',
+        url: BASE_URL + '/Ticket/' + itemID + '/ITILSolution/',
+        headers: { 
+          'Session-Token': '' + token}
+      }
+
+      Axios(config2)
+        .then((response)=> {
+          setSoluciones(response.data)
+        })
+        .catch(function (error) {
+          console.log('Error: ')
+        });
+    }
 
     return (
     <View style={styles.container}>
@@ -174,17 +203,42 @@ const TicketDetail = ({route}) => {
         </View>
         <View>
             {seguimientos.map((item) => {
+              var content = item.content.substring(9);
+              return (
+                <View style = {styles.card}>
+                  <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Seguimiento</Text>
+                  <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date}</Text>
+                  <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
+                </View>
+              )
+            })}
+        </View>
+        <View>
+            {tareas.map((item) => {
+              var content = item.content.substring(9);
             return (
-
               <View style = {styles.card}>
-                <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Seguimiento</Text>
+                <Text style={{backgroundColor:'goldenrod', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Tarea</Text>
                 <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date}</Text>
-                <Text style={{fontSize:15}}>{item.content}</Text>
+                <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
               </View>
             )
             })}
-        
         </View>
+        <View>
+            {soluciones.map((item) => {
+              var content = item.content.substring(9);
+            return (
+              <View style = {styles.card}>
+                <Text style={{backgroundColor:'limegreen', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Solucion</Text>
+                <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date_creation}</Text>
+                <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
+              </View>
+            )
+            })}
+        </View>
+
+
         </ScrollView> 
     </View>
     );
