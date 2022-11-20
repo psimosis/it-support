@@ -3,7 +3,7 @@ import axios from 'axios';
 import axios2 from 'axios';
 import base64 from 'react-native-base64'
 import { BASE_URL } from "../config/Config";
-import {Alert, AsyncStorage, View} from 'react-native'
+import {Alert, AsyncStorage} from 'react-native'
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {

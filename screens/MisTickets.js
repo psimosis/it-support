@@ -31,7 +31,6 @@ const MisTickets = () => {
     },[]);
 
     const criticidad = (value) =>{
-
       switch(value) {
         case 1:
           return 'Muy Baja';
@@ -88,6 +87,34 @@ const MisTickets = () => {
       }
     }
 
+    const cardColor = (value) =>{
+
+      switch(value) {
+        case 'Resuelto':
+          return styles.cardResuelto;
+          break;
+        
+        case 'En curso (Asignado)':
+          return styles.cardEnCurso;
+          break;
+    
+        case 'Nuevo':
+          return styles.cardNuevo;
+          break;
+    
+        case 'En Espera':
+          return styles.cardDemorado;
+          break;
+        
+        case 'Cerrado':
+          return styles.cardClose;
+          break;
+
+        default:
+          return ''
+      }
+    }
+
     const estado = (value) =>{
 
       switch(value) {
@@ -104,7 +131,7 @@ const MisTickets = () => {
           break;
     
         case 4:
-          return 'En Epera';
+          return 'En Espera';
           break;
         
         case 5:
@@ -127,20 +154,17 @@ const MisTickets = () => {
               
     <View style={styles.container}>
         <FlatList
-          data={data}
+          data={data.filter(data =>{ return data.status != '6'})}
           keyExtractor={(item) => item.id}
           
           ListEmptyComponent={
             <View style= {styles.EmptytextHeader}>
               <Text style={styles.EmptyMassage}>NO HAY TICKETS PARA MOSTRAR</Text>
             </View>}
-          
           ItemSeparatorComponent={() => <View style={{height: 7}} />}
-          
           renderItem={({item}) => (
-            //<TouchableOpacity onPress={() => alert("Abriste el ticket nro:" + item.id)}>
             <TouchableOpacity onPress={() =>  navigator.navigate('Detalle Ticket', {itemID: item.id})}>
-            <View style = {styles.card}>
+            <View style = {cardColor(estado(item.status))}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
                   <Text style={{padding:1, borderRadius: 0.8,flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{item.id}</Text>
@@ -194,13 +218,40 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: "space-between",
       },
-    card: {
+    cardNuevo: {
         backgroundColor: "gainsboro",
         borderWidth: 1,
         borderColor: "#333",
         padding: 5,
         paddingTop: 5,
         borderRadius: 7,
+    },
+    cardResuelto: {
+      backgroundColor: "lightgreen",
+      borderWidth: 1,
+      borderColor: "#333",
+      padding: 5,
+      paddingTop: 5,
+      borderRadius: 7,
+    },
+    cardEnCurso: {
+      backgroundColor: "powderblue",
+      borderWidth: 1,
+      borderColor: "#333",
+      padding: 5,
+      paddingTop: 5,
+      borderRadius: 7,
+    },
+    cardDemorado: {
+      backgroundColor: "wheat",
+      borderWidth: 1,
+      borderColor: "#333",
+      padding: 5,
+      paddingTop: 5,
+      borderRadius: 7,
+    },
+    cardClose: {
+      display: 'none',
     },
     titleText: {
         fontSize: 20,
