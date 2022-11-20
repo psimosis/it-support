@@ -11,6 +11,7 @@ const NewTicketScreen = () => {
     const [descripcionTicket, setDescripTicket] = useState({})
     const {tokenUsuario} = useContext(AuthContext);
     const [selectedValue, setSelectedValue] = useState(3)
+    const [alertVisible, setAlertVisible] = useState(false);
     const navegator = useNavigation();
 
     const enviarTicket= (tituloTicket,descipcionTicket,selectedValue,tokenUsuario) =>{
@@ -35,32 +36,26 @@ const NewTicketScreen = () => {
       .then((response) => {
         console.log("Envie el Ticket: " + tituloTicket)
         console.log(response.data)
-        //alert(response.data.message)
-        //alert("Crear Ticket:",response.data.message)
         splashTicket(response.data.message)
         navegator.navigate('Mis Tickets')
       })
       .catch(e => {
         console.log('Error en el envio del Ticket '+ tituloTicket);
-        console.log("Descripcion del Ticket: " + descipcionTicket)
-        console.log('Session Token Envio: '+ tokenUsuario);
       })
     }
 
     const splashTicket = (texto) => {
-      //const navegator = useNavigation();
       Alert.alert('Crear Ticket',texto)
-      //navegator.navigate('Mis Tickets')
      }
-     
-
-
-
-
 
     return (
-    
         <View>
+          <CustomAlert 
+          visible={alertVisible}
+          titulo={'Carga Correcta'}
+                mensaje={'Ha ingresado correctamente el nuevo ticket. \n\nIntentelo nuevamente o contactese con un Administrador'}
+                aceptarButton={() => setAlertVisible(false)}
+          />
             <View style={styles.card}>
                 <Text style={styles.campoTitulo}>Titulo</Text>
                 
@@ -101,11 +96,6 @@ const NewTicketScreen = () => {
 
     );
 };
-
-
-
-
-
 
 const styles = StyleSheet.create({
     
