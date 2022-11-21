@@ -182,7 +182,16 @@ const TicketDetail = ({route}) => {
       getData()
       setTimeout(()=>{
           setRefresh(false)
-      },2000)
+      },1000)
+  }
+
+  const formatText = (text)=>{
+    if (text != null){
+      const tag1= '&lt;p&gt;'
+      const tag2= '&lt;/p&gt;'
+      const text1 = text.replace(tag1,"")
+      return text1.replace(tag2,"")
+    }
   }
 
     return (
@@ -211,16 +220,17 @@ const TicketDetail = ({route}) => {
 
           <View style={styles.horizontalLine}/>
           <Text style={{backgroundColor:'midnightblue', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'center'}}>Descripcion</Text>
-          <Text style={{padding:5, fontSize:16}}>{data.content}</Text>
+          <Text style={{padding:5, fontSize:16}}>{formatText(data.content)}</Text>
         
           <View style={{flex: 1, height: 7}} />
           <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
         </View>
         <View>
             {seguimientos.map((item) => {
-              var content = item.content.substring(9);
+              var content = item.content;
               return (
                 <ActionCard
+                  key= {item.id}
                   content={content}
                   title = 'Seguimiento'
                   date = {item.date}
@@ -230,9 +240,10 @@ const TicketDetail = ({route}) => {
         </View>
         <View>
             {tareas.map((item) => {
-              var content = item.content.substring(9);
+              var content = item.content;
             return (
               <ActionCard
+                  key= {item.id}
                   content={content}
                   title = 'Tarea'
                   date = {item.date}
@@ -242,12 +253,13 @@ const TicketDetail = ({route}) => {
         </View>
         <View>
             {soluciones.map((item) => {
-              var content = item.content.substring(9);
+              var content = item.content;
             return (
               <ActionCard
+                  key= {item.id}
                   content={content}
                   title = 'Solucion'
-                  date = {item.date}
+                  date = {item.date_creation}
                 />
             )
             })}

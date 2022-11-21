@@ -3,15 +3,26 @@ import { Text, View, StyleSheet } from "react-native";
 import Icon from '@expo/vector-icons/Ionicons'
 
 function ActionCard(props){
+  
     return(
           <View style = {styles.card}>
             <Text style={cardColor(props.title)}>{props.title}</Text>
             <Text style={styles.date}><Icon name="calendar-outline" size={17} color="#3143e8" />  {props.date}</Text>
-            <Text style={styles.content}>{props.content.split('&lt;/p&gt;')}</Text>
+            <Text style={styles.content}>{formatText(props.content)}</Text>
           </View>
         )
         
    }
+
+   const formatText = (text)=>{
+    if (text != null){
+      const tag1= '&lt;p&gt;'
+      const tag2= '&lt;/p&gt;'
+      console.log(text)
+      const text1 = text.replace(tag1,"")
+      return text1.replace(tag2,"")
+    }
+  }
 
    const cardColor = (value) =>{
 
