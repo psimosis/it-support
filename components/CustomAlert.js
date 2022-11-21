@@ -1,7 +1,7 @@
-import React from "react";
+import React, {Component} from "react";
 import { View, Modal, Text, TouchableOpacity } from "react-native";
 
-export default function CustomAlert(props){
+function CustomAlert(props){
     return(
         <Modal transparent visible={props.visible}>
             <View 
@@ -48,3 +48,5 @@ export default function CustomAlert(props){
         </Modal>
     );
 }
+
+export default CustomAlert;

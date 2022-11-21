@@ -10,7 +10,7 @@ const LoginScreen = ({navigation}) => {
     const [password, setPassword] = useState(null);
     const {login, removeToken} = useContext(AuthContext);
     const [alertVisible, setAlertVisible] = useState(false);
-    
+
     return (
         <View style={styles.container}>
             

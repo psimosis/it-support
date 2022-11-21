@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from "./screens/HomeScreen";
-import LoginScreen from "./screens/LoginScreen";
-import { AuthContext } from "./context/AuthContext";
+import HomeScreen from "../screens/HomeScreen";
+import LoginScreen from "../screens/LoginScreen";
+import { AuthContext } from "../context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 

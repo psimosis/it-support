@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
-import {TouchableOpacity, FlatList, Text,View, StyleSheet, useWindowDimensions} from 'react-native';
+import {TouchableOpacity, FlatList, Text,View, StyleSheet, RefreshControl} from 'react-native';
 import Axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
@@ -10,8 +10,13 @@ const MisTickets = () => {
     const[data, setData] = useState([]);
     const {getToken} = useContext(AuthContext);
     const navigator = useNavigation();
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(()=> {
+      getData()
+    },[]);
+
+    const getData = () =>{
       const fetchTikcets = async () =>{
         var config = {
           method: 'get',
@@ -28,8 +33,8 @@ const MisTickets = () => {
         })
       }
       fetchTikcets()
-    },[]);
-
+    }
+    
     const criticidad = (value) =>{
       switch(value) {
         case 1:
@@ -150,13 +155,23 @@ const MisTickets = () => {
       return texto;
     }
 
+    const pullMe = () =>{
+        setRefresh(true)
+        getData()
+        setTimeout(()=>{
+            setRefresh(false)
+        },2000)
+    }
+
     return (
               
     <View style={styles.container}>
         <FlatList
           data={data.filter(data =>{ return data.status != '6'})}
           keyExtractor={(item) => item.id}
-          
+          refreshControl = {
+            <RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>
+          }
           ListEmptyComponent={
             <View style= {styles.EmptytextHeader}>
               <Text style={styles.EmptyMassage}>NO HAY TICKETS PARA MOSTRAR</Text>

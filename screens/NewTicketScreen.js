@@ -50,12 +50,6 @@ const NewTicketScreen = () => {
 
     return (
         <View>
-          <CustomAlert 
-          visible={alertVisible}
-          titulo={'Carga Correcta'}
-                mensaje={'Ha ingresado correctamente el nuevo ticket. \n\nIntentelo nuevamente o contactese con un Administrador'}
-                aceptarButton={() => setAlertVisible(false)}
-          />
             <View style={styles.card}>
                 <Text style={styles.campoTitulo}>Titulo</Text>
                 

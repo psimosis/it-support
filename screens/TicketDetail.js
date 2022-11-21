@@ -205,11 +205,11 @@ const TicketDetail = ({route}) => {
             {seguimientos.map((item) => {
               var content = item.content.substring(9);
               return (
-                <View style = {styles.card}>
-                  <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Seguimiento</Text>
-                  <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date}</Text>
-                  <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
-                </View>
+                <ActionCard
+                  content={content}
+                  title = 'Seguimiento'
+                  date = {item.date}
+                />
               )
             })}
         </View>
@@ -217,11 +217,11 @@ const TicketDetail = ({route}) => {
             {tareas.map((item) => {
               var content = item.content.substring(9);
             return (
-              <View style = {styles.card}>
-                <Text style={{backgroundColor:'goldenrod', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Tarea</Text>
-                <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date}</Text>
-                <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
-              </View>
+              <ActionCard
+                  content={content}
+                  title = 'Tarea'
+                  date = {item.date}
+                />
             )
             })}
         </View>
@@ -229,11 +229,11 @@ const TicketDetail = ({route}) => {
             {soluciones.map((item) => {
               var content = item.content.substring(9);
             return (
-              <View style = {styles.card}>
-                <Text style={{backgroundColor:'limegreen', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>Solucion</Text>
-                <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date_creation}</Text>
-                <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
-              </View>
+              <ActionCard
+                  content={content}
+                  title = 'Solucion'
+                  date = {item.date}
+                />
             )
             })}
         </View>

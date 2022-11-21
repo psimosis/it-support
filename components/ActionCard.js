@@ -2,19 +2,37 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Icon from '@expo/vector-icons/Ionicons'
 
-export default function ActionCard(props){
-    var content = props.item.content.substring(9);
-    console.log('Hola')
-    console.log(props.titulo)
+function ActionCard(props){
     return(
           <View style = {styles.card}>
-            <Text style={{backgroundColor:'grey', padding: 3,fontSize: 15,fontWeight: "bold",color: "white", textAlign: 'left'}}>{props.title}</Text>
-            <Text style={{padding:3}}><Icon name="calendar-outline" size={17} color="#3143e8" />  {item.date}</Text>
-            <Text style={{fontSize:15}}>{content.split('&lt;/p&gt;')}</Text>
+            <Text style={cardColor(props.title)}>{props.title}</Text>
+            <Text style={styles.date}><Icon name="calendar-outline" size={17} color="#3143e8" />  {props.date}</Text>
+            <Text style={styles.content}>{props.content.split('&lt;/p&gt;')}</Text>
           </View>
         )
+        
+   }
+
+   const cardColor = (value) =>{
+
+    switch(value) {
+      case 'Seguimiento':
+        return styles.titleSeguimiento;
+        break;
+      
+      case 'Tarea':
+        return styles.titleTarea;
+  
+      case 'Solucion':
+        return styles.titleSolucion;
+        break;
+
+      default:
+        return ''
     }
-const styles = StyleSheet.create({
+  }
+
+    const styles = StyleSheet.create({
     card: {
         backgroundColor: "gainsboro",
         borderWidth: 1,
@@ -23,4 +41,36 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         borderRadius: 7,
     },
+    content:{
+      fontSize:15,
+    },
+    date: {
+      padding:3,  
+    },
+    titleSeguimiento:{
+      backgroundColor:'grey',
+      padding: 3,
+      fontSize: 15,
+      fontWeight: "bold",
+      color: "white",
+      textAlign: 'left',
+    },
+    titleTarea:{
+      backgroundColor:'goldenrod',
+      padding: 3,
+      fontSize: 15,
+      fontWeight: "bold",
+      color: "white",
+      textAlign: 'left',
+    },
+    titleSolucion:{
+      backgroundColor:'limegreen',
+      padding: 3,
+      fontSize: 15,
+      fontWeight: "bold",
+      color: "white",
+      textAlign: 'left',
+    },
   });
+
+  export default ActionCard;
