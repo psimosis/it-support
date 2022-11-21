@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext, FlatList} from "react";
-import {Text,View, StyleSheet,ScrollView} from 'react-native';
+import {Text,View, StyleSheet,ScrollView, RefreshControl} from 'react-native';
 import Axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../config/Config";
@@ -14,8 +14,13 @@ const TicketDetail = ({route}) => {
   const[seguimientos, setSeguimientos] = useState([])     
   const[tareas, setTareas] = useState([])
   const[soluciones, setSoluciones] = useState([])
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(()=> {
+      getData()
+    },[]);
+
+    const getData = () =>{
       const fetchTikcets = async () =>{
         var config = {
           method: 'get',
@@ -35,8 +40,7 @@ const TicketDetail = ({route}) => {
         })
       }
       fetchTikcets()
-    },[]);
-
+    }
     const criticidad = (value) =>{
       switch(value) {
         case 1:
@@ -173,10 +177,21 @@ const TicketDetail = ({route}) => {
           console.log('Error: ')
         });
     }
+    const pullMe = () =>{
+      setRefresh(true)
+      getData()
+      setTimeout(()=>{
+          setRefresh(false)
+      },2000)
+  }
 
     return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl = {
+          <RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>
+        }
+      >
         <View style = {styles.card}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{flex:1}}>Estado: {estado(data.status)}</Text>
