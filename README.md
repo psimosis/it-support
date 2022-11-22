@@ -1,6 +1,6 @@
 ![Image text](https://i.ibb.co/Tqg6zHL/Logo-It-Support.jpg)
 # ORT IT - Support
-### TRABAJO PRACTICO ORT PNT2 - SEDE BELGRANO
+### TRABAJO PRACTICO ORT PNT2 - SEDE BELGRANO - Grupo 2
 
 
 
@@ -14,7 +14,8 @@
 ### Informacion General
 ***
 App para la gestión de solicitudes a Soporte Técnico IT
-IT-Support es un proyecto que nace de la necesidad de proporcionar un fácil acceso móvil a las solicitudes de Soporte Técnico IT en ORT, especialmente para usuarios finales, también conocido como Usuario-Fina
+
+__IT-Support__ es un proyecto que nace de la necesidad de proporcionar un fácil acceso móvil a las solicitudes de Soporte Técnico IT en ORT, especialmente para usuarios finales, también conocido como Usuario-Final
  
 ### Screenshot
 ![Image text](https://i.ibb.co/jMwyYVp/scr1.jpg)
