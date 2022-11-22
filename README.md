@@ -1,13 +1,14 @@
+![Image text](https://i.ibb.co/Tqg6zHL/Logo-It-Support.jpg)
 # ORT IT - Support
 ### TRABAJO PRACTICO ORT PNT2 - SEDE BELGRANO
 
 
 
 ## Contenidos
-1. [Informacion General](#general-info)
-2. [Tecnologia](#technologies)
-3. [Instalacion](#installation)
-4. [Autores y Colaboraciones](#collaboration)
+1. [Informacion General](#informacion-general)
+2. [Tecnologia](#tecnologia)
+3. [Instalacion](#instalacion)
+4. [Autores](#autores)
 5. [FAQs](#faqs)
 
 ### Informacion General
@@ -16,7 +17,9 @@ App para la gestión de solicitudes a Soporte Técnico IT
 IT-Support es un proyecto que nace de la necesidad de proporcionar un fácil acceso móvil a las solicitudes de Soporte Técnico IT en ORT, especialmente para usuarios finales, también conocido como Usuario-Fina
  
 ### Screenshot
-![Image text](https://marvel-live.freetls.fastly.net/canvas/2022/10/50a6642c2dbe43fa9d28db38b4a63259?dpr=1.25&fake=.png&fit=bounds&height=1440&quality=95&width=1280)
+![Image text](https://i.ibb.co/jMwyYVp/scr1.jpg)
+![Image text](https://i.ibb.co/sCC7DM5/scr2.jpg)
+![Image text](https://i.ibb.co/1Z2b4wF/scr3.jpg)
 
 ## Tecnologia
 ***
@@ -32,17 +35,17 @@ $ expo start
 
 ## Usuario y Contraseña para Test:
 
-###Usuario Final
+Usuario Final
 ```
 Usr: flor
 Pass: 123
 ```
-###Tecnico
+Tecnico
 ```
 Usr: pato
 Pass: 123
 ```
-## Autores y Colaboraciones
+## Autores
 ***
 - Patricio Simosis
 - Mateo Manente
@@ -51,17 +54,14 @@ Pass: 123
 
 ## FAQs
 ***
-A list of frequently asked questions
-1. **This is a question in bold**
-Answer of the first question with _italic words_. 
-2. __Second question in bold__ 
-To answer this question we use an unordered list:
-* First point
-* Second Point
-* Third point
-3. **Third question in bold**
-Answer of the third question with *italic words*.
-4. **Fourth question in bold**
-| Headline 1 in the tablehead | Headline 2 in the tablehead | Headline 3 in the tablehead |
-|:--------------|:-------------:|--------------:|
-| text-align left | text-align center | text-align right |
+Preguntas Frecuentes
+1. __Reutilizaron Componentes?__
+_Hemos desarrollado 2 componentes propios, un componente tarjeta para mostrar las distintas interacciones del Ticket en la pantalle de Detalle y un Custom Alert (que no ha sido implementado por cuestiones de tiempo)_. 
+2. __Cumplieron con el contrato pactado?__ 
+_Si, y mas tambien, ya que hemos mejorado el Drawer pactado dandole un impacto visual superior y hemos incluido estilos condicionales para dar claridad al estado de las gestiones_.
+3. __Fue duro el camino?__ 
+_Muy, lo mas duro fue lidiar con una API desconocida y con muy poca documentacion_.
+4. __Finalmente, se amigaron con React Native?__ 
+_Totalmente, hemos podido limar las asperezas y construir una amistad con futuro_.
+
+Lo logramos!!!!
