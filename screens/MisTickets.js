@@ -60,8 +60,6 @@ const MisTickets = () => {
         default:
           return ''
       }
-      console.log('Criticidad Texto: ' + value)
-      return texto;
     }
 
     const criticidadColor = (value) =>{
@@ -151,8 +149,6 @@ const MisTickets = () => {
         default:
           return ''
       }
-      console.log('Criticidad Texto: ' + value)
-      return texto;
     }
 
     const pullMe = () =>{
@@ -182,7 +178,7 @@ const MisTickets = () => {
             <View style = {cardColor(estado(item.status))}>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{flex:1}}>Estado: {estado(item.status)}</Text>
-                  <Text style={{padding:1, borderRadius: 0.8,flex:0,backgroundColor:'cornflowerblue'}}>Incidente: #{item.id}</Text>
+                  <Text style={styles.topCard}>Incidente: #{item.id}</Text>
                 </View>
                 <Text style={styles.titleText}>{item.name}</Text>
                 <View style={{flex: 1, height: 7}} />
@@ -190,7 +186,7 @@ const MisTickets = () => {
                   <Icon name="calendar-outline" size={20} color="#3143e8" />  {item.date}
                 </Text>
                 <View style={{flex: 1, height: 7}} />
-                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+                <View style={styles.horizontalLine} />
                 <Text style={{color:'blue'}}>Criticidad :  
                   <Text style={criticidadColor(item.urgency)}> 
                     {criticidad(item.urgency)}
@@ -285,4 +281,15 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontStyle: 'normal',
     },
+    topCard:{
+      padding:1,
+      borderRadius: 0.8,
+      flex:0,
+      backgroundColor:'cornflowerblue',
+    },
+    horizontalLine:{
+      flex: 1,
+      height: 1,
+      backgroundColor: 'black',
+    }
   });

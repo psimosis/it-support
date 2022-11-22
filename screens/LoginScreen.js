@@ -13,7 +13,6 @@ const LoginScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            
             <CustomAlert
                 visible={alertVisible}
                 titulo={'Acceso Incorrecto'}

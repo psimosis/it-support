@@ -65,12 +65,12 @@ export const AuthProvider = ({children}) => {
           datosUsuario.entidad = response.data.session.glpiprofiles[idProfle].entities[idEntidad].name
           setDatosUsuario(datosUsuario)
 
-          console.log('USUARIO LOGUEADO')
-          console.log('================')
-          console.log('Nombre Usuario:' + response.data.session.glpifriendlyname);
-          console.log('Token del Usuario: ' + token)
-          console.log('Perfil del Usuario: ' + response.data.session.glpiprofiles[idProfle].name) 
-          console.log('Entidad del Usuario: ' + response.data.session.glpiprofiles[idProfle].entities[idEntidad].name)
+          //console.log('USUARIO LOGUEADO')
+          //console.log('================')
+          //console.log('Nombre Usuario:' + response.data.session.glpifriendlyname);
+          //console.log('Token del Usuario: ' + token)
+          //console.log('Perfil del Usuario: ' + response.data.session.glpiprofiles[idProfle].name) 
+          //console.log('Entidad del Usuario: ' + response.data.session.glpiprofiles[idProfle].entities[idEntidad].name)
         })
         .catch(function (error) {
           console.log('Error en la data de usuario:')

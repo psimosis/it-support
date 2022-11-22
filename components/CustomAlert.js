@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { View, Modal, Text, TouchableOpacity } from "react-native";
+import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 function CustomAlert(props){
     return(
@@ -23,7 +23,7 @@ function CustomAlert(props){
                     <Text
                         adjustFontSizeToFit
                         numberOfLines={1}
-                        style={{fontSize: 18, fontWeight: 'bold', marginVertical: 10, color: 'red'}}>
+                        style={styles.titulo}>
                         {props.titulo}
                     </Text>
                     <Text style ={{textAlign: 'center'}}>{props.mensaje}</Text>
@@ -31,15 +31,7 @@ function CustomAlert(props){
                     
                     <TouchableOpacity
                     onPress={props.aceptarButton}
-                        style={{
-                            backgroundColor: '#87CEFA',
-                            width: '100%',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderRadius: 5,
-                            padding: 5,
-                            margin: 5,
-                        }}
+                        style={styles.boton}
                     >
                         <Text>Aceptar</Text>
                     </TouchableOpacity>
@@ -48,5 +40,23 @@ function CustomAlert(props){
         </Modal>
     );
 }
+
+const styles = StyleSheet.create({
+    titulo: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 10,
+        color: 'red',
+    },
+    boton:{
+        backgroundColor: '#87CEFA',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        padding: 5,
+        margin: 5,
+    }
+  });
 
 export default CustomAlert;

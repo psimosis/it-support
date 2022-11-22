@@ -18,7 +18,7 @@ function ActionCard(props){
     if (text != null){
       const tag1= '&lt;p&gt;'
       const tag2= '&lt;/p&gt;'
-      console.log(text)
+      //console.log(text)
       const text1 = text.replace(tag1,"")
       return text1.replace(tag2,"")
     }

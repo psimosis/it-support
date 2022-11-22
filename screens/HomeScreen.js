@@ -6,7 +6,7 @@ import { DrawerNavigator } from "../navigation/DrawerNavigator";
 
 const HomeScreen = () => {
     const {tokenUsuario} = useContext(AuthContext);
-    console.log('Token Home: ' + tokenUsuario)
+    //console.log('Token Home: ' + tokenUsuario)
     return (
         <NavigationContainer independent={true}>
            <DrawerNavigator />

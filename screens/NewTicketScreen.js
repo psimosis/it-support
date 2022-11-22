@@ -34,8 +34,8 @@ const NewTicketScreen = () => {
         }
         })
       .then((response) => {
-        console.log("Envie el Ticket: " + tituloTicket)
-        console.log(response.data)
+        //console.log("Envie el Ticket: " + tituloTicket)
+        //console.log(response.data)
         splashTicket(response.data.message)
         navegator.navigate('Mis Tickets')
       })
